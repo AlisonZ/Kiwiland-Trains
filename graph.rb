@@ -91,13 +91,68 @@ def make_graph
     end
 
 # TODO: remove  print out loop from final version
-    g.nodes.each do |node|
-        puts "this is the graph node #{node.name}"
-        puts "this is the neighbors #{node.neighbors}"
-        puts "this is the weights #{node.weights}"
+    # g.nodes.each do |node|
+    #     puts "this is the graph node #{node.name}"
+    #     puts "this is the neighbors #{node.neighbors}"
+    #     puts "this is the weights #{node.weights}"
+    # end
+
+start_program(g)
+end
+
+def start_program(g)
+    # puts "Welcome to Kiwiland Trains Scheduling!"
+    # puts "We have several ways to explore your options"
+    # puts "Please enter A, B, C... to select which scheduling option you are interested in"
+    # puts "A: Exact-Route, B: Number of trips from X-Y with maximum of stops, C: Number of trips from X-Y with exact number of stops, D: Shortest distance from X-Y, or E: Number of different routes from X-Y with a max number of stops"
+    # selection = gets.chomp
+
+    # select_route_option(selection)
+    exact_route(g)
+end
+
+def select_route_option(selection)
+    selection.upcase
+    if selection === "A"
+        exact_route()
+    elsif selection === "B"
+    # add all of the other selections and have them go to the function for that selection
+    else
+        puts "that is not a valid selection"
+    end
+end
+
+def exact_route(g)
+    routes = Hash.new
+    g.inputArray.each do |route|
+        routes[route[0,2]] = route[2]
     end
 
+    puts "Enter the stations list"
+    stations = gets.chomp.upcase
+    # TODO:
+    #this only works for the specific input here with - between routes
+    #need to get rid of trailing spaces
+    stations = stations.split("-")
+
+    i = 0
+    distance = 0
+    
+    while i < stations.length-1
+        route = stations[i]+stations[i+1]
+        if routes[route]
+            distance += routes[route].to_i
+            i+=1
+        else
+            puts "NO SUCH ROUTE"
+            return
+        end
+    end
+
+    puts distance
 end
+
+
 
 
 make_graph
