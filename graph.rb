@@ -108,7 +108,7 @@ def start_program(g)
     # selection = gets.chomp
 
     # select_route_option(selection)
-    exact_route(g)
+    # exact_route(g)
 end
 
 def select_route_option(selection)
@@ -137,7 +137,6 @@ def exact_route(g)
 
     i = 0
     distance = 0
-    
     while i < stations.length-1
         route = stations[i]+stations[i+1]
         if routes[route]
@@ -151,8 +150,5 @@ def exact_route(g)
 
     puts distance
 end
-
-
-
 
 make_graph
