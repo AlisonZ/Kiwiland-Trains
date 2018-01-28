@@ -44,6 +44,8 @@ def start_program(g)
 
     # select_route_option(selection)
     # exact_route(g)
+    # depth_first(g, "C")
+    find_all_routes(g, "A", "C")
 end
 
 def select_route_option(selection)
@@ -84,5 +86,33 @@ def exact_route(g)
     end
     puts distance
 end
+
+def find_all_routes_helper(g, source, destination, visited, path)
+    index = g.node_list.find_index(source)
+    visited[index] = true
+    path << source
+
+    if source === destination
+        print path
+    else
+        source_node = g.find_node(source)
+        source_node.neighbors.each_with_index do |neighbor, i|
+            if neighbor && visited[i] === false
+                find_all_routes_helper(g, g.node_list[i], destination, visited, path)
+            end
+        end
+    end
+
+    path.pop()
+    visited[index]=false
+end
+
+def find_all_routes(g, source, destination)
+    visited = [false] * g.node_list.length
+    path = []
+
+    find_all_routes_helper(g, source, destination, visited, path)
+end
+
 
 make_graph()
