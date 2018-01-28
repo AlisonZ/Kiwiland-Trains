@@ -1,10 +1,11 @@
 class Node
-    attr_accessor :name, :weights, :neighbors
+    attr_accessor :name, :weights, :neighbors, :visited
 
     def initialize(name)
         @name = name
         @weights = []
         @neighbors = []
+        @visited = false
     end
 end
 

@@ -25,14 +25,14 @@ def make_graph
         end
     end
 
-# TODO: remove  print out loop from final version
+    # TODO: remove  print out loop from final version
     # g.nodes.each do |node|
     #     puts "this is the graph node #{node.name}"
     #     puts "this is the neighbors #{node.neighbors}"
     #     puts "this is the weights #{node.weights}"
     # end
 
-start_program(g)
+    start_program(g)
 end
 
 def start_program(g)
@@ -53,7 +53,7 @@ def select_route_option(selection)
     if selection === "A"
         exact_route()
     elsif selection === "B"
-    # add all of the other selections and have them go to the function for that selection
+        # add all of the other selections and have them go to the function for that selection
     else
         puts "that is not a valid selection"
     end
@@ -93,26 +93,37 @@ def find_all_routes_helper(g, source, destination, visited, path)
     path << source
 
     if source === destination
-        puts path
+        print path
     else
         source_node = g.find_node(source)
-        source_node.neighbors.each_with_index do |neighbor, i|
-            if neighbor && visited[i] === false
-                find_all_routes_helper(g, g.node_list[i], destination, visited, path)
+
+        neighbors = []
+            source_node.neighbors.each_with_index do |neighbor, i|
+                if neighbor && visited[i] === false
+                    neighbors << g.node_list[i]
+                    # puts "this is i #{i}"
+                    # puts "this is the g node list at i #{g.node_list[i]}"
+                    # puts "this is the neighbor #{neighbor}"
+                    # find_all_routes_helper(g, g.node_list[i], destination, visited, path)
+                    find_all_routes(g, g.node_list[i], destination, visited, path)
+                end
             end
-        end
     end
 
     path.pop()
     visited[index]=false
 end
 
-def find_all_routes(g, source, destination)
-    visited = [false] * g.node_list.length
-    path = []
+def find_all_routes(g, source, destination, visited = [], path =[])
+    if visited.length === 0
+        visited = [false] * g.node_list.length
+    end
 
     find_all_routes_helper(g, source, destination, visited, path)
+
 end
+
+
 
 
 make_graph()
