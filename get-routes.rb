@@ -93,7 +93,7 @@ def find_all_routes_helper(g, source, destination, visited, path)
     path << source
 
     if source === destination
-        print path
+        puts path
     else
         source_node = g.find_node(source)
         source_node.neighbors.each_with_index do |neighbor, i|
